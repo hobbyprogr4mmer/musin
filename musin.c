@@ -13,8 +13,8 @@ typedef enum {
 }Readoption;
 
 typedef struct{
-    char *albumorsong;
-    char *artist;
+    char albumorsong[50];
+    char artist[50];
     int year;
     float estval;
 }Vinyl;
@@ -47,7 +47,7 @@ void argHandler(int argc, char *argv[], State state){
             state = READ;
             read(state);
         } else if(strcmp(argv[1],"-h") == 0) {
-            printf("Usage:\tmusin [-w]\tmusin [-r]\n");
+            printf("Usage:\tmusin [-w]\n\tmusin [-r]\n");
         } else {    
             printf("Not an argument, try using the flag -h for help\n");
         }
@@ -61,6 +61,7 @@ int read(State state){
         FILE *pF = fopen("music.txt", "r");
         if(pF == NULL){
             printf("Cannot find file\n");
+            return 1;
         } else {
             printf("- 0 to read all\n - 1 to select\n");
             scanf("%d", &roption);
@@ -81,7 +82,7 @@ int read(State state){
         }
     fclose(pF);
     } else {
-        return 0;
+        return 1;
     }
     return 0;
 }
@@ -92,41 +93,32 @@ int write(State state){
     const char deco[] = "**********************************************";
 
     if(state == WRITE){
-        FILE *pF = fopen("../music.txt", "a");
+        FILE *pF = fopen("music.txt", "a");
         printf("How many songs would you like to add?\n");
         scanf("%d", &counter);
-            
+        
+        printf("Prompt Guide:\n\t Album and artist name must be written in snake-case\n\t Year must be an integer\n\t Value must be an integer or a decimal-point value\n");
         // initialize counter amount of Vinyl structs
         for(int i = 0; i < counter; i++){
-            Vinyl Vinyl[] = {Vinyl[i].albumorsong, 
-                            Vinyl[i].artist, 
-                            Vinyl[i].year, 
-                            Vinyl[i].estval,
-                            };
-            
-            char *aos = (char*)malloc(50); 
-            char *a = (char*)malloc(50); 
+            Vinyl vinyl;
+        
             // prompts
-            printf("What is the name of the album? (Song if single): \n");
-            scanf("%s", aos);
-            strcpy(aos, Vinyl[i].albumorsong);
-            free(aos);
-            printf("What is the name the artist?: \n");
-            scanf("%s", a);
-            strcpy(a, Vinyl[i].artist);
-            free(a);
-            printf("What year did the song come out?");
-            scanf("%d", &Vinyl[i].year);
-            printf("The value of the song is AUD$: ");
-            scanf("%f", &Vinyl[i].estval);
+            printf("What is the name of the album? (Song if single): ");
+            scanf("%s", vinyl.albumorsong);
+            printf("What is the name the artist?: ");
+            scanf("%s", vinyl.artist);
+            printf("What year did the song come out?: ");
+            scanf("%d", &vinyl.year);
+            printf("The value of the song in AUD$: ");
+            scanf("%f", &vinyl.estval);
             
             // prints vinyl structs into file
             fprintf(pF, " %s\n Album/song name: %s\n- Artist: %s\n- Year: %d\n- Estimated value (AUD): %.2f\n %s\n", 
-            deco, Vinyl[i].albumorsong, Vinyl[i].artist, Vinyl[i].year, Vinyl[i].estval, deco);
+            deco, vinyl.albumorsong, vinyl.artist, vinyl.year, vinyl.estval, deco);
         }
     fclose(pF);
     } else {
-        return 0;
+        return 1;
     }
     return 0;
 }
