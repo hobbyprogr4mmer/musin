@@ -6,4 +6,4 @@
 # Inputs are not sanitized and will break the program if adherence to the prompt guide is not followed
 # Prompt guide is printed upon specifying amount of songs
 
-MORE: Inputs can and should be sanitized, however it is too tedious in C and I'd rather move on from such a niche project
+MORE: Inputs can and should be sanitized, however it is too tedious in C and I'd rather move on from this small project
