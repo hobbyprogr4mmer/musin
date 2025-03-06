@@ -4,7 +4,7 @@
 # Data can be searched through grep music.txt or the program's read tool
 
 PRIORITY TODO: Fix segfault in write.
-MORE: 
+MORE: Could use more error handling outside of args. Could add more arguments.
 
 
 
