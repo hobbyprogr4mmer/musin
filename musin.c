@@ -66,8 +66,8 @@ int read(State state){
             printf("- 0 to read all\n - 1 to select\n");
             scanf("%d", &roption);
             if(roption == ALL) {
+                printf("Printing all: \n");
                 while(fgets(rbuffer, 225, pF) != NULL){
-                    printf("Printing all: \n");
                     printf("%s", rbuffer);
                 }
             } else if(roption == SELECT) {
@@ -94,7 +94,7 @@ int write(State state){
 
     if(state == WRITE){
         FILE *pF = fopen("music.txt", "a");
-        printf("How many songs would you like to add?\n");
+        printf("How many albums would you like to add?\n");
         scanf("%d", &counter);
         
         printf("Prompt Guide:\n\t Album and artist name must be written in snake-case\n\t Year must be an integer\n\t Value must be an integer or a decimal-point value\n");
