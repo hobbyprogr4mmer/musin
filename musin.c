@@ -56,7 +56,7 @@ void argHandler(int argc, char *argv[], State state){
 
 int read(State state){
     Readoption roption;
-    char rbuffer[255];
+    char rbuffer[51];
     if(state == READ){ 
         FILE *pF = fopen("music.txt", "r");
         if(pF == NULL){
@@ -67,14 +67,14 @@ int read(State state){
             scanf("%d", &roption);
             if(roption == ALL) {
                 printf("Printing all: \n");
-                while(fgets(rbuffer, 225, pF) != NULL){
+                while(fgets(rbuffer, sizeof(rbuffer), pF) != NULL){
                     printf("%s", rbuffer);
                 }
             } else if(roption == SELECT) {
                 char substr[150];
                 printf("Type what to search for: ");
                 scanf("%s", substr);
-                while(fgets(rbuffer, 225, pF) != NULL){
+                while(fgets(rbuffer, sizeof(rbuffer), pF) != NULL){
                     char *Poutput = strstr(rbuffer, substr);
                     printf("Search result: %s", Poutput);
                 }    
@@ -105,11 +105,11 @@ int write(State state){
             // prompts
             printf("What is the name of the album? (Song if single): ");
             scanf("%s", vinyl.albumorsong);
-            printf("What is the name the artist?: ");
+            printf("What is the name of the artist?: ");
             scanf("%s", vinyl.artist);
-            printf("What year did the song come out?: ");
+            printf("What year did the album come out?: ");
             scanf("%d", &vinyl.year);
-            printf("The value of the song in AUD$: ");
+            printf("The value of the album in AUD$: ");
             scanf("%f", &vinyl.estval);
             
             // prints vinyl structs into file

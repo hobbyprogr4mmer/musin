@@ -5,5 +5,3 @@
 # Data should be typed in snake_case or kebab-case, failure to do so will result in an error or unexpected output
 # Inputs are not sanitized and will break the program if adherence to the prompt guide is not followed
 # Prompt guide is printed upon specifying amount of songs
-
-MORE: Inputs can and should be sanitized, however it is too tedious in C and I'd rather move on from this small project
